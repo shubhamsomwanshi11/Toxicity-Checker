@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TensorFlow.js toxicity classifier demo</title>
+    <style>
+        .row {
+            display: flex;
+            flex-direction: row
+        }
+
+        .row:nth-of-type(2n) {
+            background: #f5f5f5;
+            border: none;
+
+        }
+
+        .row .text {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+
+        .row .label {
+            border: none;
+            width: 60px;
+            min-width: 100px;
+            max-width: 100px;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        .row:first-of-type .label {
+            border: none;
+            text-transform: capitalize;
+
+        }
+
+        .row:first-of-type .label,
+        .row:first-of-type .text {
+            font-weight: 700;
+            text-transform: lowercase;
+            line-height: 1.4;
+            padding-bottom: 20px;
+            text-transform: capitalize;
+
+        }
+
+        .positive {
+            font-weight: 700;
+            color: red !important;
+        }
+
+        .label,
+        .text {
+            padding: 10px
+        }
+
+
+        #table-wrapper {
+            margin-bottom: 60px
+        }
+
+        p {
+            font-weight: 700
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+</head>
+
+<body>
+    <div id="main" class="container mt-5">
+        <h1 class="title has-text-grey has-text-centered">Toxicity Checker</h1>
+        <div class="box" id="table-wrapper"></div>
+        <hr>
+        <p class="has-text-weight-semibold">Enter text below and click 'Classify' to add it to the table.</p>
+        <textarea name="" placeholder="i.e. 'you suck'" id="classify-new-text-input" class="textarea mt-3"></textarea>
+        <div class="buttons mt-3">
+            <button class="is-success button" id="classify-new-text">Classify</button>
+            <button class="is-danger button mx-2" id="resetButton" onclick="resetTextAndTable()">Reset</button>
+            <script>
+                function resetTextAndTable() {
+                    document.getElementById('classify-new-text-input').value = '';
+                    [...document.getElementsByClassName('row')].forEach((element, index) => {
+                        if (index !== 0) {
+                            element.remove();
+                        }
+                    });
+                }
+            </script>
+
+        </div>
+    </div>
+    <script src="https://storage.googleapis.com/tfjs-models/demos/toxicity/demo.9dd631f3.js"></script>
+</body>
+
+</html>
