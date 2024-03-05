@@ -88,25 +88,15 @@
 <body>
     <div id="main" class="container mt-5">
         <h1 class="title has-text-grey has-text-centered">Toxicity Checker</h1>
-        <div class="box" id="table-wrapper">
+        <div class="box" id="table-wrapper" style="display: none;">
             <div class="loader"></div>
         </div>
         <hr>
         <p class="has-text-weight-semibold">Enter text below and click 'Classify' to add it to the table.</p>
         <textarea name="" placeholder="i.e. 'you suck'" id="classify-new-text-input" class="textarea mt-3"></textarea>
         <div class="buttons mt-3">
-            <button class="is-success button" id="classify-new-text" onclick="startLoader()">Classify</button>
-            <button class="is-danger button mx-2" id="resetButton" onclick="resetTextAndTable()">Reset</button>
-            <script>
-                function resetTextAndTable() {
-                    document.getElementById('classify-new-text-input').value = '';
-                    [...document.getElementsByClassName('row')].forEach((element, index) => {
-                        if (index !== 0) {
-                            element.remove();
-                        }
-                    });
-                }
-            </script>
+            <button class="is-success button" id="classify-new-text" onclick="setDisplay()">Classify</button>
+            <button class="is-danger button mx-2" id="resetButton" onclick="resetAll()">Reset</button>
         </div>
     </div>
     <script src="https://storage.googleapis.com/tfjs-models/demos/toxicity/demo.9dd631f3.js"></script>
@@ -119,6 +109,7 @@
                 generate();
             }, 3000);
         }
+
         function generate() {
             [...document.getElementsByClassName('label')].forEach(element => {
                 element.classList.remove('label');
@@ -135,9 +126,27 @@
                 }
             });
         }
-        document.addEventListener("DOMContentLoaded", function () {
+        function setDisplay() {
+            resetTextAndTable();
+            document.getElementById('table-wrapper').style.display = '';
+            [...document.getElementsByClassName('label')].forEach(element => {
+                element.classList.remove('label');
+                element.classList.add('label1');
+            })
             startLoader();
-        });
+        }
+
+        function resetTextAndTable() {
+            [...document.getElementsByClassName('row')].forEach((element, index) => {
+                if (index !== 0) {
+                    element.remove();
+                }
+            });
+        }
+        function resetAll() {
+            document.getElementById('classify-new-text-input').value = '';
+            resetTextAndTable();
+        }
 
     </script>
 </body>
