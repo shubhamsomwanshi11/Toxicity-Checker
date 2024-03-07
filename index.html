@@ -104,10 +104,12 @@
         function startLoader() {
             var loader = document.querySelector(".loader");
             loader.style.display = "block";
+            document.getElementById('classify-new-text').disabled = true;
             setTimeout(() => {
                 loader.style.display = "none";
                 generate();
-            }, 3000);
+                document.getElementById('classify-new-text').disabled = false;
+            }, 3000).then()
         }
 
         function generate() {
